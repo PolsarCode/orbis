@@ -88,13 +88,13 @@ pnpm run release
 ```
 
 This:
-1. Bumps `version` in `package.json` based on the Gitmoji of the new `server`/`web`/`mobile` commits: `💥` → major, `✨` → minor, anything else (or only changes in this repository) → patch.
+1. Bumps `version` in `package.json` based on the Gitmoji of the `server`/`web`/`mobile` commits made since their last release: `💥` → major, `✨` → minor, anything else (or only changes in this repository) → patch.
 2. Pushes whichever of `server`, `web`, and `mobile` have new commits.
-3. Commits everything here, including the new submodule commits and any uncommitted changes in this repository, with the version as the title (for example `v0.2.0`). The description lists the new `server`/`web`/`mobile` commits and the changed files in this repository.
+3. Records the commit each app is released from in `released.json`, then commits everything here, including the new submodule commits and any uncommitted changes in this repository, with the version as the title (for example `v0.2.0`). The description lists the new `server`/`web`/`mobile` commits and the changed files in this repository.
 4. Tags that commit (for example `v0.2.0`) and pushes the commit and tag.
 5. Deploys only the apps with new commits in this release: `server` (Fly), `web` (Vercel), and `mobile` (EAS Update; skipped with a warning until it's set up, see [Mobile](#mobile)). The others are skipped.
 
-It stops without changing anything if a submodule has uncommitted changes. If nothing changed in `server`, `web`, or `mobile`, it still bumps the version, commits, tags, and pushes, and deploys nothing.
+"New" means newer than the commit in `released.json`, not newer than the commit this repository points to, so you can still release after pulling commits that were never released. Only the release script updates `released.json`. Uncommitted changes inside `server`, `web`, or `mobile` don't stop the release, but they aren't part of it: they're left out of the release notes, yet an app that is deployed is built from its folder as it is, so they go out with it. If nothing changed in `server`, `web`, or `mobile`, it still bumps the version, commits, tags, and pushes, and deploys nothing.
 
 `pnpm install` enables the hooks in `.githooks`: `git push` here also pushes the submodule commits to a branch with the same name.
 

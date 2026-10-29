@@ -17,6 +17,16 @@ branch=$(git branch --show-current)
 [ -n "$branch" ] || fail "This repository is not on a branch."
 
 submodules=$(git config --file .gitmodules --get-regexp '\.path$' | awk '{print $2}')
+released_file=released.json
+
+released_commit() {
+  node -e '
+    const fs = require("fs");
+    let commits = {};
+    try { commits = JSON.parse(fs.readFileSync(process.argv[1], "utf8")); } catch {}
+    console.log(commits[process.argv[2]] ?? "");
+  ' "$released_file" "$1"
+}
 
 collect() {
   changed=""
@@ -24,19 +34,16 @@ collect() {
   body=""
 
   for path in $submodules; do
-    if [ -n "$(git -C "$path" status --porcelain)" ]; then
-      fail "$path has uncommitted changes. Commit them inside $path first."
-    fi
-
-    recorded=$(git rev-parse -q --verify "HEAD:$path" || true)
+    last=$(released_commit "$path")
+    [ -n "$last" ] || last=$(git rev-parse -q --verify "HEAD:$path" || true)
     current=$(git -C "$path" rev-parse HEAD)
-    [ "$recorded" = "$current" ] && continue
+    [ "$last" = "$current" ] && continue
 
     [ -n "$(git -C "$path" branch --show-current)" ] || fail "$path is not on a branch."
-    if [ -n "$recorded" ]; then
-      git -C "$path" merge-base --is-ancestor "$recorded" "$current" ||
-        fail "$path is not ahead of the commit recorded here."
-      range="$recorded..$current"
+    if [ -n "$last" ]; then
+      git -C "$path" merge-base --is-ancestor "$last" "$current" ||
+        fail "$path is not ahead of the commit it was last released from ($last)."
+      range="$last..$current"
     else
       range="$current"
     fi
@@ -89,6 +96,14 @@ node -e '
   pkg.version = process.argv[1];
   fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2) + "\n");
 ' "$version"
+
+node -e '
+  const fs = require("fs");
+  const [file, ...pairs] = process.argv.slice(1);
+  const commits = {};
+  for (let i = 0; i < pairs.length; i += 2) commits[pairs[i]] = pairs[i + 1];
+  fs.writeFileSync(file, JSON.stringify(commits, null, 2) + "\n");
+' "$released_file" $(for path in $submodules; do printf '%s %s ' "$path" "$(git -C "$path" rev-parse HEAD)"; done)
 
 message=$(printf '%s\n\n%s' "$tag" "$body")
 
