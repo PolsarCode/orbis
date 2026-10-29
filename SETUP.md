@@ -331,6 +331,29 @@ Production sends through Resend. Its free plan covers small apps.
 
 To try Resend locally instead of Mailpit, set `RESEND_API_KEY` in `server/.env`. Until your domain is verified, Resend only delivers mail from `onboarding@resend.dev` to the address you signed up to Resend with.
 
+## Bot Protection
+
+Logging in and signing up with an email and password go through [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/), a free check that tells people from bots, usually without asking them to do anything. The web form gets a token from Cloudflare and the server checks it before anything else.
+
+| Setting | File | Local value |
+| --- | --- | --- |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | `web/.env.local` | `1x00000000000000000000AA` |
+| `TURNSTILE_SECRET_KEY` | `server/.env` | `1x0000000000000000000000000000000AA` |
+
+These are Cloudflare's test keys, so the check always passes locally. Leave both empty to turn the check off, for example while working on the mobile app, which doesn't send a token yet. Scripts that log in through the API without the web form can send `XXXX.DUMMY.TOKEN.XXXX` as `turnstileToken`.
+
+### Production Bot Protection
+
+1. In the Cloudflare dashboard, open **Turnstile**, add a widget for the site's domain in **Managed** mode, and copy its site key and secret key.
+2. Add `NEXT_PUBLIC_TURNSTILE_SITE_KEY` with the site key to the Vercel project's Environment Variables, then deploy the web app so the form starts sending tokens.
+3. Then turn on the check in the server:
+
+   ```bash
+   fly secrets set TURNSTILE_SECRET_KEY=<secret key> -a orbis-server
+   ```
+
+Until the secret is set, the server skips the check and warns about it in its logs. The mobile app doesn't send a token yet, so once the check is on, it can only log in and sign up with Discord or Twitch.
+
 ## Day-to-Day
 
 | Task | Command |
