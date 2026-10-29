@@ -34,7 +34,7 @@ This pulls the latest changes, clones `server`, `web`, and `mobile` over SSH (th
 | Command | Description |
 | --- | --- |
 | `pnpm run setup` | Pull the latest changes, update submodules, and install dependencies (safe to rerun) |
-| `pnpm run release` | Bump the version, commit the new `server`/`web`/`mobile` commits, tag, push, and deploy |
+| `pnpm run release` | Bump the version, commit the new `server`/`web`/`mobile` commits, tag, push, and deploy the apps that changed |
 | `pnpm run pull` | Pull this repository and the latest `main` of `server`/`web`/`mobile`, install dependencies, reset the local database, reapply migrations, and seed |
 | `pnpm run develop` | Ask whether to start web, mobile, both, or only the server, then run the matching script below (or pass the choice: `pnpm run develop web`) |
 | `pnpm run develop:web` | Start the database, server, and web in development mode |
@@ -42,7 +42,7 @@ This pulls the latest changes, clones `server`, `web`, and `mobile` over SSH (th
 | `pnpm run develop:all` | Start the database, server, web, and mobile together (run this instead of the two above to work on both) |
 | `pnpm run develop:server` | Start the database and server only |
 | `pnpm run build` | Build the server and web (the mobile app is published with EAS Update instead) |
-| `pnpm run review:start` | Ask for a `web`, `server`, and `mobile` PR number and check them out for review |
+| `pnpm run review:start` | Check off what you're testing (web, mobile, server), then enter those PR numbers to check them out for review (or pass them: `pnpm run review:start web server`) |
 | `pnpm run review:end` | Switch `web`, `server`, and `mobile` back to `main` |
 
 ## Mobile
@@ -68,7 +68,7 @@ If the app can't reach the server:
 pnpm run review:start
 ```
 
-This first installs the [GitHub CLI](https://cli.github.com) (with Homebrew, apt, or winget) if it's missing and runs `gh auth login` if you're not logged in. It then asks for the `web`, `server`, and `mobile` PR numbers in turn (leave any empty to skip it), shows each PR's title, checks each PR out on a local `pr/<number>` branch with `gh pr checkout`, installs dependencies, and regenerates the Prisma client. Rerunning it with the same number updates the branch to the PR's latest commit. It stops without changing anything if a PR doesn't exist or a submodule you entered a number for has uncommitted changes.
+This first installs the [GitHub CLI](https://cli.github.com) (with Homebrew, apt, or winget) if it's missing and runs `gh auth login` if you're not logged in. It then shows a checklist of `Web`, `Mobile`, and `Server` (with `Server` already checked): move with ↑/↓ or `j`/`k`, check with space, and press enter. You can also skip the checklist by passing your picks, like `pnpm run review:start web server` (or `all`). It asks only for the PR numbers of what you checked (leave any empty to skip it), shows each PR's title, checks each PR out on a local `pr/<number>` branch with `gh pr checkout`, installs dependencies, regenerates the Prisma client, and tells you which `develop` script starts what you picked. Rerunning it with the same number updates the branch to the PR's latest commit. It stops without changing anything if a PR doesn't exist or a submodule you entered a number for has uncommitted changes.
 
 When you're done:
 
@@ -89,12 +89,12 @@ pnpm run release
 
 This:
 1. Bumps `version` in `package.json` based on the Gitmoji of the new `server`/`web`/`mobile` commits: `💥` → major, `✨` → minor, anything else (or only changes in this repository) → patch.
-2. Pushes `server`, `web`, and `mobile`.
+2. Pushes whichever of `server`, `web`, and `mobile` have new commits.
 3. Commits everything here, including the new submodule commits and any uncommitted changes in this repository, with the version as the title (for example `v0.2.0`). The description lists the new `server`/`web`/`mobile` commits and the changed files in this repository.
 4. Tags that commit (for example `v0.2.0`) and pushes the commit and tag.
-5. Deploys `server` (Fly), `web` (Vercel), and `mobile` (EAS Update; skipped with a warning until it's set up, see [Mobile](#mobile)).
+5. Deploys only the apps with new commits in this release: `server` (Fly), `web` (Vercel), and `mobile` (EAS Update; skipped with a warning until it's set up, see [Mobile](#mobile)). The others are skipped.
 
-It stops without changing anything if a submodule has uncommitted changes, or if nothing changed here, in `server`, in `web`, or in `mobile`.
+It stops without changing anything if a submodule has uncommitted changes. If nothing changed in `server`, `web`, or `mobile`, it still bumps the version, commits, tags, and pushes, and deploys nothing.
 
 `pnpm install` enables the hooks in `.githooks`: `git push` here also pushes the submodule commits to a branch with the same name.
 

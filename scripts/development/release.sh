@@ -54,7 +54,6 @@ collect() {
 }
 
 collect
-[ -n "$changed" ] || [ -n "$files" ] || fail "Nothing to release: nothing changed here, in server, in web, or in mobile."
 
 node scripts/development/changelog.mjs || fail "The changelog step stopped the release."
 collect
@@ -77,6 +76,7 @@ tag="v$version"
 git rev-parse -q --verify "refs/tags/$tag" >/dev/null && fail "Tag $tag already exists."
 
 echo "🔖 Releasing $tag ($bump)"
+[ -n "$changed" ] || echo "ℹ️ Nothing new in server, web, or mobile, so this release only bumps the version."
 
 for path in $changed; do
   echo "⬆️ Pushing $path..."
@@ -101,8 +101,13 @@ git push -u origin HEAD
 git push origin "refs/tags/$tag"
 
 for path in server web mobile; do
-  echo "🚀 Deploying $path..."
-  (cd "$path" && pnpm run deploy)
+  case " $changed " in
+    *" $path "*)
+      echo "🚀 Deploying $path..."
+      (cd "$path" && pnpm run deploy)
+      ;;
+    *) echo "⏭️ Skipping the $path deploy: nothing new in $path." ;;
+  esac
 done
 
 echo "✅ Released $tag"

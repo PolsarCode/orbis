@@ -4,36 +4,93 @@ set -euo pipefail
 
 cd "$(dirname "$0")/../.."
 
-options=("Web" "Mobile" "Web and mobile" "Server only")
-choice="${1:-}"
+apps=(web mobile server)
+labels=(Web Mobile Server)
+checked=(0 0 1)
 
-if [ -z "$choice" ]; then
-  if [ ! -t 0 ]; then
-    echo "❌ Choose what to review: pnpm run review:start web|mobile|all|server." >&2
-    exit 1
-  fi
-
-  echo "🧪 What are you testing? (you'll be asked for the server PR too)"
-  PS3="Choose 1-${#options[@]}: "
-  select option in "${options[@]}"; do
-    if [ -n "$option" ]; then
-      choice=$REPLY
-      break
-    fi
+draw_checklist() {
+  local i pointer mark
+  for ((i = 0; i < ${#apps[@]}; i++)); do
+    pointer=" "
+    mark=" "
+    [ "$i" -eq "$cursor" ] && pointer="›"
+    [ "${checked[i]}" -eq 1 ] && mark="✓"
+    printf '\033[2K%s [%s] %s\n' "$pointer" "$mark" "${labels[i]}"
   done
-  [ -n "$choice" ] || exit 1
+  printf '\033[2K%s\n' "$status"
+}
+
+pick_apps() {
+  local key rest i count=${#apps[@]}
+  cursor=0
+  status=""
+  echo "🧪 What are you testing? (↑/↓ or j/k to move, space to check, enter to continue)"
+  printf '\033[?25l'
+  trap 'printf "\033[?25h"' EXIT
+  draw_checklist
+  while true; do
+    IFS= read -rsn1 key
+    if [ "$key" = $'\033' ]; then
+      IFS= read -rsn2 rest
+      case "$rest" in
+        '[A' | 'OA') key=k ;;
+        '[B' | 'OB') key=j ;;
+      esac
+    fi
+    status=""
+    case "$key" in
+      k) cursor=$(((cursor - 1 + count) % count)) ;;
+      j) cursor=$(((cursor + 1) % count)) ;;
+      ' ') checked[cursor]=$((1 - checked[cursor])) ;;
+      '')
+        for ((i = 0; i < count; i++)); do
+          [ "${checked[i]}" -eq 1 ] && selected="$selected ${apps[i]}"
+        done
+        [ -n "$selected" ] && break
+        status="Check at least one."
+        ;;
+    esac
+    printf '\033[%dA' "$((count + 1))"
+    draw_checklist
+  done
+  printf '\033[?25h'
+}
+
+selected=""
+if [ "$#" -gt 0 ]; then
+  for arg in "$@"; do
+    case "$arg" in
+      web | mobile | server) selected="$selected $arg" ;;
+      all) selected="$selected web mobile server" ;;
+      *)
+        echo "❌ Unknown choice \"$arg\". Use web, mobile, server, or all." >&2
+        exit 1
+        ;;
+    esac
+  done
+elif [ -t 0 ]; then
+  pick_apps
+else
+  echo "❌ Choose what to review: pnpm run review:start web mobile server (any of them, or all)." >&2
+  exit 1
 fi
 
-case "$choice" in
-  1 | web) apps="web server" script="develop:web" ;;
-  2 | mobile) apps="server mobile" script="develop:mobile" ;;
-  3 | all) apps="web server mobile" script="develop:all" ;;
-  4 | server) apps="server" script="develop:server" ;;
-  *)
-    echo "❌ Unknown choice \"$choice\". Use web, mobile, all, or server." >&2
-    exit 1
-    ;;
-esac
+picked() {
+  case " $selected " in
+    *" $1 "*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+if picked web && picked mobile; then
+  script="develop:all"
+elif picked web; then
+  script="develop:web"
+elif picked mobile; then
+  script="develop:mobile"
+else
+  script="develop:server"
+fi
 
 if ! command -v gh >/dev/null 2>&1; then
   echo "📦 Installing the GitHub CLI..."
@@ -69,13 +126,9 @@ ask_pr() {
 web_pr=""
 server_pr=""
 mobile_pr=""
-for app in $apps; do
-  case "$app" in
-    web) web_pr=$(ask_pr "Web") ;;
-    server) server_pr=$(ask_pr "Server") ;;
-    mobile) mobile_pr=$(ask_pr "Mobile") ;;
-  esac
-done
+picked web && web_pr=$(ask_pr "Web")
+picked server && server_pr=$(ask_pr "Server")
+picked mobile && mobile_pr=$(ask_pr "Mobile")
 
 if [ -z "$web_pr" ] && [ -z "$server_pr" ] && [ -z "$mobile_pr" ]; then
   echo "Nothing to review."
