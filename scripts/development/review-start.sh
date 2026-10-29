@@ -4,6 +4,37 @@ set -euo pipefail
 
 cd "$(dirname "$0")/../.."
 
+options=("Web" "Mobile" "Web and mobile" "Server only")
+choice="${1:-}"
+
+if [ -z "$choice" ]; then
+  if [ ! -t 0 ]; then
+    echo "❌ Choose what to review: pnpm run review:start web|mobile|all|server." >&2
+    exit 1
+  fi
+
+  echo "🧪 What are you testing? (you'll be asked for the server PR too)"
+  PS3="Choose 1-${#options[@]}: "
+  select option in "${options[@]}"; do
+    if [ -n "$option" ]; then
+      choice=$REPLY
+      break
+    fi
+  done
+  [ -n "$choice" ] || exit 1
+fi
+
+case "$choice" in
+  1 | web) apps="web server" script="develop:web" ;;
+  2 | mobile) apps="server mobile" script="develop:mobile" ;;
+  3 | all) apps="web server mobile" script="develop:all" ;;
+  4 | server) apps="server" script="develop:server" ;;
+  *)
+    echo "❌ Unknown choice \"$choice\". Use web, mobile, all, or server." >&2
+    exit 1
+    ;;
+esac
+
 if ! command -v gh >/dev/null 2>&1; then
   echo "📦 Installing the GitHub CLI..."
   if command -v brew >/dev/null 2>&1; then
@@ -35,9 +66,16 @@ ask_pr() {
   echo "$number"
 }
 
-web_pr=$(ask_pr "Web")
-server_pr=$(ask_pr "Server")
-mobile_pr=$(ask_pr "Mobile")
+web_pr=""
+server_pr=""
+mobile_pr=""
+for app in $apps; do
+  case "$app" in
+    web) web_pr=$(ask_pr "Web") ;;
+    server) server_pr=$(ask_pr "Server") ;;
+    mobile) mobile_pr=$(ask_pr "Mobile") ;;
+  esac
+done
 
 if [ -z "$web_pr" ] && [ -z "$server_pr" ] && [ -z "$mobile_pr" ]; then
   echo "Nothing to review."
@@ -74,4 +112,4 @@ pnpm install
 echo "⚙️ Generating Prisma client..."
 pnpm --filter orbis-server run prisma:generate
 
-echo "🎉 Ready to review. Run pnpm run develop:web or pnpm run develop:mobile to start the app, and pnpm run review:end when you're done."
+echo "🎉 Ready to review. Run pnpm run $script to start it, and pnpm run review:end when you're done."
