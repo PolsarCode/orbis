@@ -36,7 +36,7 @@ This pulls the latest changes, clones `server`, `web`, and `mobile` over SSH (th
 | `pnpm run setup` | Pull the latest changes, update submodules, and install dependencies (safe to rerun) |
 | `pnpm run release` | Bump the version, commit the new `server`/`web`/`mobile` commits, tag, push, and deploy the apps that changed |
 | `pnpm run pull` | Pull this repository and the latest `main` of `server`/`web`/`mobile`, install dependencies, reset the local database, reapply migrations, and seed |
-| `pnpm run develop` | Ask whether to start web, mobile, both, or only the server, then run the matching script below (or pass the choice: `pnpm run develop web`) |
+| `pnpm run develop` | Show a checklist of `Web`, `Mobile`, and `Server` (move with ↑/↓ or `j`/`k`, check with space, press enter; `Server` is always checked because the database and server always start, so leaving the others unchecked starts only the server), then run the matching script below. Skip the checklist by passing your picks: `pnpm run develop web mobile` (or `all`, or `server`) |
 | `pnpm run develop:web` | Start the database, server, and web in development mode |
 | `pnpm run develop:mobile` | Start the database, server, and the Expo dev server for the mobile app |
 | `pnpm run develop:all` | Start the database, server, web, and mobile together (run this instead of the two above to work on both) |
