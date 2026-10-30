@@ -354,6 +354,24 @@ These are Cloudflare's test keys, so the check always passes locally. Leave both
 
 Until the secret is set, the server skips the check and warns about it in its logs. The mobile app doesn't send a token yet, so once the check is on, it can only log in and sign up with Discord or Twitch.
 
+## Two-Factor Sign-In
+
+People can protect their password login with an authenticator app (Settings › Security). The server encrypts each person's authenticator secret with `TWO_FACTOR_KEY` in `server/.env`. Generate one with:
+
+```bash
+openssl rand -hex 32
+```
+
+Without it, setting up two-factor sign-in and logging in to an account that has it on both fail with "Two-factor sign-in isn't available right now".
+
+In production, set it before deploying the server:
+
+```bash
+fly secrets set TWO_FACTOR_KEY=<key> -a orbis-server
+```
+
+Never change it once people use two-factor sign-in: their saved secrets can only be read with the key they were saved with, so they couldn't log in with their password until an admin removes their two-factor sign-in.
+
 ## Day-to-Day
 
 | Task | Command |
