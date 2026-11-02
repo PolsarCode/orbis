@@ -4,10 +4,10 @@ set -euo pipefail
 
 cd "$(dirname "$0")/../.."
 
-apps=(web mobile server)
-labels=(Web Mobile "Server (always on)")
-checked=(0 0 1)
-locked=2
+apps=(web mobile desktop server)
+labels=(Web Mobile Desktop "Server (always on)")
+checked=(0 0 0 1)
+locked=3
 
 draw_checklist() {
   local i pointer mark
@@ -66,10 +66,10 @@ selected=""
 if [ "$#" -gt 0 ]; then
   for arg in "$@"; do
     case "$arg" in
-      web | mobile | server) selected="$selected $arg" ;;
-      all) selected="$selected web mobile" ;;
+      web | mobile | desktop | server) selected="$selected $arg" ;;
+      all) selected="$selected web mobile desktop" ;;
       *)
-        echo "❌ Unknown choice \"$arg\". Use web, mobile, server, or all." >&2
+        echo "❌ Unknown choice \"$arg\". Use web, mobile, desktop, server, or all." >&2
         exit 1
         ;;
     esac
@@ -77,7 +77,7 @@ if [ "$#" -gt 0 ]; then
 elif [ -t 0 ]; then
   pick_apps
 else
-  echo "❌ Choose what to start: pnpm run develop web mobile server (any of them, or all), or pnpm run develop:web, develop:mobile, develop:all, or develop:server." >&2
+  echo "❌ Choose what to start: pnpm run develop web mobile desktop server (any of them, or all), or pnpm run develop:web, develop:mobile, develop:desktop, develop:all, or develop:server." >&2
   exit 1
 fi
 
@@ -88,14 +88,10 @@ picked() {
   esac
 }
 
-if picked web && picked mobile; then
-  script="develop:all"
-elif picked web; then
-  script="develop:web"
-elif picked mobile; then
-  script="develop:mobile"
-else
-  script="develop:server"
-fi
+filters="--filter=orbis-server"
+if picked web || picked desktop; then filters="$filters --filter=orbis-web"; fi
+if picked mobile; then filters="$filters --filter=orbis-mobile"; fi
+if picked desktop; then filters="$filters --filter=orbis-desktop"; fi
+if picked mobile || picked desktop; then filters="$filters --ui=tui"; fi
 
-exec pnpm run "$script"
+exec pnpm exec turbo run develop $filters

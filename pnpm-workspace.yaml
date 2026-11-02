@@ -2,6 +2,7 @@ packages:
   - server
   - web
   - mobile
+  - desktop
 
 allowBuilds:
   '@nestjs/core': true

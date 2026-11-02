@@ -83,7 +83,7 @@ tag="v$version"
 git rev-parse -q --verify "refs/tags/$tag" >/dev/null && fail "Tag $tag already exists."
 
 echo "🔖 Releasing $tag ($bump)"
-[ -n "$changed" ] || echo "ℹ️ Nothing new in server, web, or mobile, so this release only bumps the version."
+[ -n "$changed" ] || echo "ℹ️ Nothing new in server, web, mobile, or desktop, so this release only bumps the version."
 
 for path in $changed; do
   echo "⬆️ Pushing $path..."
@@ -115,9 +115,13 @@ echo "⬆️ Pushing $tag..."
 git push -u origin HEAD
 git push origin "refs/tags/$tag"
 
-for path in server web mobile; do
+for path in server web mobile desktop; do
   case " $changed " in
     *" $path "*)
+      if ! node -e 'process.exit(require(process.argv[1]).scripts?.deploy ? 0 : 1)' "./$path/package.json"; then
+        echo "⏭️ Skipping the $path deploy: $path has no deploy script yet."
+        continue
+      fi
       echo "🚀 Deploying $path..."
       (cd "$path" && pnpm run deploy)
       ;;

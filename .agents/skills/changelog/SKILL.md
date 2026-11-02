@@ -1,6 +1,6 @@
 ---
 name: changelog
-description: Write the user-facing Orbis changelog from the git history of the whole monorepo (root, web, server, mobile). Use when asked to write or update the changelog for a range of past days. `pnpm run release` runs it automatically through scripts/development/changelog.mjs.
+description: Write the user-facing Orbis changelog from the git history of the whole monorepo (root, web, server, mobile, desktop). Use when asked to write or update the changelog for a range of past days. `pnpm run release` runs it automatically through scripts/development/changelog.mjs.
 ---
 
 # Changelog
@@ -33,13 +33,13 @@ The changelog tells Orbis users what changed, in their words. It lives in `web/c
 
 ## Workflow
 
-1. Get the changes for the days you were given: `node .agents/skills/changelog/collect.mjs <from> <to>`. It lists each day's commits from all four repositories, with their messages and changed files.
+1. Get the changes for the days you were given: `node .agents/skills/changelog/collect.mjs <from> <to>`. It lists each day's commits from all five repositories, with their messages and changed files.
 2. For each day, pick out what users can see:
    - Commit emoji are the first hint: ✨ new, 🐛 fixed, 🚸 💄 📱 ⚡️ improved. 📝 ✅ ♻️ 🔧 🔨 👷 ⬆️ 🗃️ 🎨 🔥 🚚 are usually invisible to users.
    - Changed files confirm it. Web pages, components, and stores, and mobile screens are user-facing. Server changes count only when they change what people see or can do. Tests, docs, agent files (`AGENTS.md`, `CLAUDE.md`, skills), migrations, config, and dependency updates don't.
    - When a message is unclear, read the change itself with `git -C <repo> show <hash>` before deciding.
    - Leave out admin-only tools (the reports board, admin settings) and anything only developers would notice.
-3. Merge the commits behind one change into a single entry, even when they span web, server, and mobile, or several commits on the same day.
+3. Merge the commits behind one change into a single entry, even when they span web, server, mobile, and desktop, or several commits on the same day.
 4. Write each entry for users:
    - The title says what changed in a few words, in sentence case, with no full stop.
    - The description is one or two plain sentences about what people can now do or what works better. Speak to them as "you".

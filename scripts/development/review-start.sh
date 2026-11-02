@@ -4,9 +4,9 @@ set -euo pipefail
 
 cd "$(dirname "$0")/../.."
 
-apps=(web mobile server)
-labels=(Web Mobile Server)
-checked=(0 0 1)
+apps=(web mobile desktop server)
+labels=(Web Mobile Desktop Server)
+checked=(0 0 0 1)
 
 draw_checklist() {
   local i pointer mark
@@ -60,10 +60,10 @@ selected=""
 if [ "$#" -gt 0 ]; then
   for arg in "$@"; do
     case "$arg" in
-      web | mobile | server) selected="$selected $arg" ;;
-      all) selected="$selected web mobile server" ;;
+      web | mobile | desktop | server) selected="$selected $arg" ;;
+      all) selected="$selected web mobile desktop server" ;;
       *)
-        echo "❌ Unknown choice \"$arg\". Use web, mobile, server, or all." >&2
+        echo "❌ Unknown choice \"$arg\". Use web, mobile, desktop, server, or all." >&2
         exit 1
         ;;
     esac
@@ -71,7 +71,7 @@ if [ "$#" -gt 0 ]; then
 elif [ -t 0 ]; then
   pick_apps
 else
-  echo "❌ Choose what to review: pnpm run review:start web mobile server (any of them, or all)." >&2
+  echo "❌ Choose what to review: pnpm run review:start web mobile desktop server (any of them, or all)." >&2
   exit 1
 fi
 
@@ -82,15 +82,11 @@ picked() {
   esac
 }
 
-if picked web && picked mobile; then
-  script="develop:all"
-elif picked web; then
-  script="develop:web"
-elif picked mobile; then
-  script="develop:mobile"
-else
-  script="develop:server"
-fi
+start=""
+for app in web mobile desktop; do
+  if picked "$app"; then start="$start $app"; fi
+done
+[ -n "$start" ] || start=" server"
 
 if ! command -v gh >/dev/null 2>&1; then
   echo "📦 Installing the GitHub CLI..."
@@ -126,16 +122,18 @@ ask_pr() {
 web_pr=""
 server_pr=""
 mobile_pr=""
+desktop_pr=""
 picked web && web_pr=$(ask_pr "Web")
 picked server && server_pr=$(ask_pr "Server")
 picked mobile && mobile_pr=$(ask_pr "Mobile")
+picked desktop && desktop_pr=$(ask_pr "Desktop")
 
-if [ -z "$web_pr" ] && [ -z "$server_pr" ] && [ -z "$mobile_pr" ]; then
+if [ -z "$web_pr" ] && [ -z "$server_pr" ] && [ -z "$mobile_pr" ] && [ -z "$desktop_pr" ]; then
   echo "Nothing to review."
   exit 0
 fi
 
-for entry in "web:$web_pr" "server:$server_pr" "mobile:$mobile_pr"; do
+for entry in "web:$web_pr" "server:$server_pr" "mobile:$mobile_pr" "desktop:$desktop_pr"; do
   path=${entry%%:*}
   number=${entry#*:}
   [ -z "$number" ] && continue
@@ -150,7 +148,7 @@ for entry in "web:$web_pr" "server:$server_pr" "mobile:$mobile_pr"; do
   echo "🔎 $path PR #$number: $title"
 done
 
-for entry in "web:$web_pr" "server:$server_pr" "mobile:$mobile_pr"; do
+for entry in "web:$web_pr" "server:$server_pr" "mobile:$mobile_pr" "desktop:$desktop_pr"; do
   path=${entry%%:*}
   number=${entry#*:}
   [ -z "$number" ] && continue
@@ -165,4 +163,4 @@ pnpm install
 echo "⚙️ Generating Prisma client..."
 pnpm --filter orbis-server run prisma:generate
 
-echo "🎉 Ready to review. Run pnpm run $script to start it, and pnpm run review:end when you're done."
+echo "🎉 Ready to review. Run pnpm run develop$start to start it, and pnpm run review:end when you're done."

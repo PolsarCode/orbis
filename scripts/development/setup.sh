@@ -57,6 +57,10 @@ copy_env server/example.env server/.env
 copy_env web/example.env web/.env.local
 copy_env mobile/example.env mobile/.env.local
 
+if ! command -v cargo >/dev/null 2>&1; then
+  echo "⚠️ Rust isn't installed, so the desktop app can't run. Install it from https://www.rust-lang.org/tools/install if you work on it."
+fi
+
 if docker info >/dev/null 2>&1; then
   if ! docker container inspect "$DB_CONTAINER" >/dev/null 2>&1; then
     echo "🗄️ Creating database container..."
@@ -77,4 +81,4 @@ fi
 echo "⚙️ Generating Prisma client..."
 pnpm --filter orbis-server run prisma:generate
 
-echo "🎉 Setup complete. Run: pnpm run develop:web or pnpm run develop:mobile"
+echo "🎉 Setup complete. Run: pnpm run develop:web, pnpm run develop:mobile, or pnpm run develop:desktop"

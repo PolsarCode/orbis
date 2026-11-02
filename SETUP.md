@@ -17,13 +17,14 @@ When it's running:
 | Tool | Version | Why |
 | --- | --- | --- |
 | Git | any recent | Cloning the repositories |
-| Node.js | 22 LTS | Running the server, web, and mobile dev server |
+| Node.js | 22 LTS | Running the server, web, mobile, and desktop dev servers |
 | pnpm | 12.4.2 | Installing dependencies and running scripts |
 | Docker | any recent | Running PostgreSQL, image storage, and the email inbox |
-| SSH key on GitHub | | `server`, `web`, and `mobile` are cloned over SSH |
+| SSH key on GitHub | | `server`, `web`, `mobile`, and `desktop` are cloned over SSH |
 | Expo Go (phone), or Xcode / Android Studio | latest | Running the mobile app (optional; see [Mobile](README.md#mobile)) |
+| Rust | latest stable | Running the desktop app (optional; see [Desktop](README.md#desktop)) |
 
-You also need access to the `PolsarCode/orbis`, `PolsarCode/orbis.server`, `PolsarCode/orbis.web`, and `PolsarCode/orbis.mobile` repositories on GitHub.
+You also need access to the `PolsarCode/orbis`, `PolsarCode/orbis.server`, `PolsarCode/orbis.web`, `PolsarCode/orbis.mobile`, and `PolsarCode/orbis.desktop` repositories on GitHub.
 
 ### macOS
 
@@ -136,7 +137,7 @@ Skip this if `ssh -T git@github.com` already greets you by your username.
    pnpm run setup
    ```
 
-   This clones `server`, `web`, and `mobile`, installs dependencies, enables the git hooks, creates `server/.env`, `web/.env.local`, and `mobile/.env.local`, creates the PostgreSQL, storage, and email inbox containers, and generates the Prisma client. It warns about the `XXXX` values you fill in next.
+   This clones `server`, `web`, `mobile`, and `desktop`, installs dependencies, enables the git hooks, creates `server/.env`, `web/.env.local`, and `mobile/.env.local`, creates the PostgreSQL, storage, and email inbox containers, and generates the Prisma client. It warns about the `XXXX` values you fill in next.
 
 3. Fill in `server/.env`:
 

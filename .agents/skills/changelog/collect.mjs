@@ -4,7 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
-export const repos = [".", "web", "server", "mobile"];
+export const repos = [".", "web", "server", "mobile", "desktop"];
 
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
 const RELEASE = /^v\d+\.\d+\.\d+$/;
@@ -108,7 +108,7 @@ function describe({ day, releases, changes }) {
     lines.push("No commits.");
     return lines.join("\n");
   }
-  for (const repo of ["web", "server", "mobile", "root"]) {
+  for (const repo of ["web", "server", "mobile", "desktop", "root"]) {
     const commits = changes.filter((change) => change.repo === repo);
     if (commits.length === 0) continue;
     lines.push("", `### ${repo} (${commits.length} ${commits.length === 1 ? "commit" : "commits"})`);
