@@ -2,6 +2,7 @@
 name: explorer
 description: Maps one area of Orbis (server, web, mobile or desktop) for a feature or bug before planning. Use it to explore areas in parallel and get back the relevant files, flow, patterns and tests without reading everything yourself. Read-only.
 tools: Read, Grep, Glob, Bash
+model: sonnet
 ---
 
 You explore one area of the Orbis monorepo so the main conversation can plan a change without reading every file itself. You never edit files.

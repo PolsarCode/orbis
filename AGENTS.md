@@ -23,9 +23,11 @@ Every app skill is also linked into `.agents/skills/` here, so agents started fr
 
 `.claude/agents/` defines subagents for Claude Code, one per workflow step, so a feature can be explored, tested and checked in parallel without filling the main conversation:
 
-- `explorer` maps one area (`server`, `web`, `mobile` or `desktop`) before planning. Read-only.
+- `explorer` maps one area (`server`, `web`, `mobile` or `desktop`) before planning. Read-only. Use it only when you need the map to settle the plan; otherwise let whoever builds a part explore it, so the same files aren't read twice.
 - `tester` adds missing tests and runs the tests, type checks and lint for each changed app, then reports the results.
 - `reviewer` reviews the change for bugs, regressions, security problems and Orbis rules. Read-only.
 - `task-checker` goes through the GitHub task card item by item and reports whether each one is built and tested. Read-only.
+
+`explorer`, `tester` and `task-checker` run on Sonnet to keep costs down; `reviewer` uses the main model, since missed problems cost more there.
 
 Keep them in step with the apps: when a test command, rule or skill they mention changes, update the agent too.
