@@ -44,7 +44,7 @@ This pulls the latest changes, clones `server`, `web`, `mobile`, and `desktop` o
 | `pnpm run develop:all` | Start the database, server, web, mobile, and desktop together |
 | `pnpm run develop:server` | Start the database and server only |
 | `pnpm run build` | Build the server and web (the mobile app is published with EAS Update instead) |
-| `pnpm run review:start` | Check off what you're testing (web, mobile, desktop, server), then enter those PR numbers to check them out for review (or pass them: `pnpm run review:start web server`) |
+| `pnpm run review:start` | Check off what you're testing (web, mobile, desktop, server), then pick an open PR for each from a list to check it out for review (or pass them: `pnpm run review:start web server`) |
 | `pnpm run review:end` | Switch `web`, `server`, `mobile`, and `desktop` back to `main` |
 
 ## Mobile
@@ -77,7 +77,7 @@ This starts the database, the server, the web app, and the desktop app, which op
 pnpm run review:start
 ```
 
-This first installs the [GitHub CLI](https://cli.github.com) (with Homebrew, apt, or winget) if it's missing and runs `gh auth login` if you're not logged in. It then shows a checklist of `Web`, `Mobile`, `Desktop`, and `Server` (with `Server` already checked): move with ↑/↓ or `j`/`k`, check with space, and press enter. You can also skip the checklist by passing your picks, like `pnpm run review:start web server` (or `all`). It asks only for the PR numbers of what you checked (leave any empty to skip it), shows each PR's title, checks each PR out on a local `pr/<number>` branch with `gh pr checkout`, installs dependencies, regenerates the Prisma client, and tells you which `pnpm run develop` command starts what you picked. Rerunning it with the same number updates the branch to the PR's latest commit. It stops without changing anything if a PR doesn't exist or a submodule you entered a number for has uncommitted changes.
+This first installs the [GitHub CLI](https://cli.github.com) (with Homebrew, apt, or winget) if it's missing and runs `gh auth login` if you're not logged in. It then shows a checklist of `Web`, `Mobile`, `Desktop`, and `Server` (with `Server` already checked): move with ↑/↓ or `j`/`k`, check with space, and press enter. You can also skip the checklist by passing your picks, like `pnpm run review:start web server` (or `all`). For each app you checked, it lists that repository's 20 most recent open PRs with `gh pr list`: move with ↑/↓ or `j`/`k` and press enter to choose one, or choose `Skip` (an app with no open PRs is skipped). It then shows each PR's title, checks each PR out on a local `pr/<number>` branch with `gh pr checkout`, installs dependencies, regenerates the Prisma client, and tells you which `pnpm run develop` command starts what you picked. Rerunning it and choosing the same PR updates the branch to the PR's latest commit. It stops without changing anything if a submodule you chose a PR for has uncommitted changes.
 
 When you're done:
 

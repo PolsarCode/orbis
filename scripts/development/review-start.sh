@@ -109,24 +109,73 @@ if ! gh auth status >/dev/null 2>&1; then
   gh auth login
 fi
 
-ask_pr() {
-  local number
-  read -rp "$1 PR number (leave empty to skip): " number
-  if [ -n "$number" ] && ! [[ $number =~ ^[0-9]+$ ]]; then
-    echo "❌ \"$number\" is not a PR number." >&2
+draw_menu() {
+  local i pointer
+  for ((i = 0; i < ${#options[@]}; i++)); do
+    pointer=" "
+    [ "$i" -eq "$cursor" ] && pointer="›"
+    printf '\033[2K%s %s\n' "$pointer" "${options[i]}"
+  done
+}
+
+pick_pr() {
+  local app=$1 label=$2 list key rest count number title
+  pr_choice=""
+  if ! list=$(cd "$app" && gh pr list --state open --limit 20 --json number,title,author -q '.[] | "\(.number)\t\(.title) · @\(.author.login)"'); then
+    echo "❌ Couldn't list the $label PRs." >&2
     exit 1
   fi
-  echo "$number"
+  if [ -z "$list" ]; then
+    echo "ℹ️ $label has no open PRs, so it's skipped."
+    return
+  fi
+  if ! [ -t 0 ]; then
+    echo "❌ Run pnpm run review:start in a terminal to choose the $label PR." >&2
+    exit 1
+  fi
+  numbers=()
+  options=()
+  while IFS=$'\t' read -r number title; do
+    numbers+=("$number")
+    options+=("#$number $title")
+  done <<<"$list"
+  numbers+=("")
+  options+=("Skip $label")
+  count=${#options[@]}
+  cursor=0
+  echo "🔀 Which $label PR? (↑/↓ or j/k to move, enter to choose)"
+  printf '\033[?25l'
+  trap 'printf "\033[?25h"' EXIT
+  draw_menu
+  while true; do
+    IFS= read -rsn1 key
+    if [ "$key" = $'\033' ]; then
+      IFS= read -rsn2 rest
+      case "$rest" in
+        '[A' | 'OA') key=k ;;
+        '[B' | 'OB') key=j ;;
+      esac
+    fi
+    case "$key" in
+      k) cursor=$(((cursor - 1 + count) % count)) ;;
+      j) cursor=$(((cursor + 1) % count)) ;;
+      '') break ;;
+    esac
+    printf '\033[%dA' "$count"
+    draw_menu
+  done
+  printf '\033[?25h'
+  pr_choice=${numbers[cursor]}
 }
 
 web_pr=""
 server_pr=""
 mobile_pr=""
 desktop_pr=""
-picked web && web_pr=$(ask_pr "Web")
-picked server && server_pr=$(ask_pr "Server")
-picked mobile && mobile_pr=$(ask_pr "Mobile")
-picked desktop && desktop_pr=$(ask_pr "Desktop")
+if picked web; then pick_pr web Web && web_pr=$pr_choice; fi
+if picked server; then pick_pr server Server && server_pr=$pr_choice; fi
+if picked mobile; then pick_pr mobile Mobile && mobile_pr=$pr_choice; fi
+if picked desktop; then pick_pr desktop Desktop && desktop_pr=$pr_choice; fi
 
 if [ -z "$web_pr" ] && [ -z "$server_pr" ] && [ -z "$mobile_pr" ] && [ -z "$desktop_pr" ]; then
   echo "Nothing to review."
