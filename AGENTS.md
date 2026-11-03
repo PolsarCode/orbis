@@ -18,3 +18,14 @@ This block is written and re-added by `turbo` before repository-scoped commands 
 The `changelog` skill (`.agents/skills/changelog/SKILL.md`) belongs to this folder: it writes the user-facing changelog in `web/changelog/` from the history of all four repositories. `pnpm run release` runs it through `scripts/development/changelog.mjs`, so use it directly only when asked to write the changelog. It's linked as `.claude/skills/changelog` for Claude Code.
 
 Every app skill is also linked into `.agents/skills/` here, so agents started from this folder can find them. When you add or rename a skill in an app, add or update its link here too, for example `ln -s ../../web/.agents/skills/<name> .agents/skills/<name>`. Keep skill names unique across the apps.
+
+## Subagents
+
+`.claude/agents/` defines subagents for Claude Code, one per workflow step, so a feature can be explored, tested and checked in parallel without filling the main conversation:
+
+- `explorer` maps one area (`server`, `web`, `mobile` or `desktop`) before planning. Read-only.
+- `tester` adds missing tests and runs the tests, type checks and lint for each changed app, then reports the results.
+- `reviewer` reviews the change for bugs, regressions, security problems and Orbis rules. Read-only.
+- `task-checker` goes through the GitHub task card item by item and reports whether each one is built and tested. Read-only.
+
+Keep them in step with the apps: when a test command, rule or skill they mention changes, update the agent too.
