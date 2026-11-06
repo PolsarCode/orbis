@@ -1,0 +1,106 @@
+{
+  "tag": "v0.111.0",
+  "releasedAt": "2026-11-06T17:51:09.649Z",
+  "checkedAt": "2026-11-06T17:46:47.965Z",
+  "apps": {
+    "server": {
+      "previous": "e2ec2a091a0ccacd94e499ed6363b7c69b299fa0",
+      "commit": "763a42058c204e3549de1e56f1d33264bedc970a",
+      "checkedCommit": "763a42058c204e3549de1e56f1d33264bedc970a",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "822 passed, 822 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "eb83192df7e6ae5c3fa01153cb8f84f5cd0079db",
+      "commit": "2b017689ffa52049039273a23b9291ba957bb43f",
+      "checkedCommit": "2b017689ffa52049039273a23b9291ba957bb43f",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "89d7bf03b13071f7cf7dfb4920394a212ca4c682",
+      "commit": "89d7bf03b13071f7cf7dfb4920394a212ca4c682",
+      "checkedCommit": "89d7bf03b13071f7cf7dfb4920394a212ca4c682",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "53 passed, 53 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "c1dfa55236b96cb20e5a490027b0d68b05ac18d6",
+      "message": "✨ Add reposts and quote posts with feed, safety, and seed support"
+    },
+    {
+      "repo": "web",
+      "commit": "2b017689ffa52049039273a23b9291ba957bb43f",
+      "message": "✨ Add reposts and quote posts with share actions and notifications"
+    },
+    {
+      "repo": "server",
+      "commit": "763a42058c204e3549de1e56f1d33264bedc970a",
+      "message": "✅ Tamper decoded bytes in secret box ciphertext test"
+    }
+  ],
+  "fixRounds": [
+    {
+      "round": 1,
+      "agent": "Claude",
+      "failed": [
+        "server tests"
+      ]
+    }
+  ]
+}
