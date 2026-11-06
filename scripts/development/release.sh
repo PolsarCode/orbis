@@ -16,6 +16,8 @@ label() {
 branch=$(git branch --show-current)
 [ -n "$branch" ] || fail "This repository is not on a branch."
 
+node scripts/development/release-check.mjs || fail "The release checks stopped the release."
+
 submodules=$(git config --file .gitmodules --get-regexp '\.path$' | awk '{print $2}')
 released_file=released.json
 

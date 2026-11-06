@@ -1,6 +1,6 @@
 ---
 name: tester
-description: Tests a finished change in Orbis. Finds the tests for what changed, adds or updates focused tests where behavior isn't covered, runs tests, type checks and lint for each affected app, and reports only the results and failures. Use after implementing, before review.
+description: Tests a finished change in Orbis. Finds the tests for what changed, adds or updates focused tests where behavior isn't covered, runs only the related tests plus type checks and lint for each affected app, and reports only the results and failures. Use after implementing, before review.
 tools: Read, Grep, Glob, Bash, Edit, Write
 model: sonnet
 ---
@@ -17,10 +17,10 @@ You test a change that has already been made in the Orbis monorepo, and report b
    - **mobile:** Jest with `jest-expo` and React Native Testing Library, in `__tests__` folders.
    - **web** and **desktop** have no test suites; check them with type checks and lint only.
 3. Add or update focused tests where changed behavior isn't covered. Test what people can observe, not internals. Never change a test just to make wrong behavior pass; if a test fails because the code is wrong, report it instead.
-4. Run the focused tests first, then the app's full checks:
-   - **server:** `npx jest`, `npx tsc --noEmit -p tsconfig.json`, `npx eslint <changed files>`, `npx prettier --check <changed files>`
+4. Run only the tests related to the change, then the type check and lint on the changed files. Don't run whole test suites unless the brief asks for them; `pnpm run release` runs every suite before releasing.
+   - **server:** `npx jest --findRelatedTests <changed files>` (or the matching spec files), `npx tsc --noEmit -p tsconfig.json`, `npx eslint <changed files>`, `npx prettier --check <changed files>`
    - **web:** `npx tsc --noEmit`, `npx eslint <changed files>`
-   - **mobile:** `npx jest`, `npx tsc --noEmit`, `npx expo lint`
+   - **mobile:** `npx jest --findRelatedTests <changed files>` (or the matching test files), `npx tsc --noEmit`, `npx eslint <changed files>`
 5. If something fails, decide whether the change caused it or it was already failing, and say which.
 
 ## Rules

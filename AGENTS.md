@@ -19,12 +19,18 @@ The `changelog` skill (`.agents/skills/changelog/SKILL.md`) belongs to this fold
 
 Every app skill is also linked into `.agents/skills/` here, so agents started from this folder can find them. When you add or rename a skill in an app, add or update its link here too, for example `ln -s ../../web/.agents/skills/<name> .agents/skills/<name>`. Keep skill names unique across the apps.
 
+## Testing
+
+When building a feature or fixing a bug, run only the tests related to what changed: `npx jest --findRelatedTests <changed files>`, or the spec files of the modules you touched. Add the type check (`npx tsc --noEmit`) and lint on the changed files. Don't run whole test suites.
+
+`pnpm run release` runs every test, type check and lint for all the apps before it releases (`scripts/development/release-check.mjs`). It first commits any uncommitted work in `server`, `web`, `mobile` and `desktop` with an AI-written message. If a check fails, it has Claude (Codex as a fallback) fix it, commits the fix and checks again, for up to 3 rounds before it stops the release.
+
 ## Subagents
 
 `.claude/agents/` defines subagents for Claude Code, one per workflow step, so a feature can be explored, tested and checked in parallel without filling the main conversation:
 
 - `explorer` maps one area (`server`, `web`, `mobile` or `desktop`) before planning. Read-only. Use it only when you need the map to settle the plan; otherwise let whoever builds a part explore it, so the same files aren't read twice.
-- `tester` adds missing tests and runs the tests, type checks and lint for each changed app, then reports the results.
+- `tester` adds missing tests and runs the tests related to the change, plus type checks and lint for each changed app, then reports the results. Whole suites run at release time.
 - `reviewer` reviews the change for bugs, regressions, security problems and Orbis rules. Read-only.
 - `task-checker` goes through the GitHub task card item by item and reports whether each one is built and tested. Read-only.
 
