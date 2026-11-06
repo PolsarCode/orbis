@@ -23,7 +23,7 @@ Every app skill is also linked into `.agents/skills/` here, so agents started fr
 
 When building a feature or fixing a bug, run only the tests related to what changed: `npx jest --findRelatedTests <changed files>`, or the spec files of the modules you touched. Add the type check (`npx tsc --noEmit`) and lint on the changed files. Don't run whole test suites.
 
-`pnpm run release` runs every test, type check and lint for all the apps before it releases (`scripts/development/release-check.mjs`). It first commits any uncommitted work in `server`, `web`, `mobile` and `desktop` with an AI-written message. If a check fails, it has Claude (Codex as a fallback) fix it, commits the fix and checks again, for up to 3 rounds before it stops the release.
+`pnpm run release` runs every test, type check and lint for all the apps before it releases (`scripts/development/release-check.mjs`). It first commits any uncommitted work in `server`, `web`, `mobile` and `desktop` with an AI-written message. If a check fails, it has Claude (Codex as a fallback) fix it, commits the fix and checks again, for up to 3 rounds before it stops the release. Each release saves what was checked and deployed in `releases/<tag>.json`: every app's commit, each check's result and test counts, the commits the checks made, any fix rounds, and each deploy's result. An app whose deploy fails isn't recorded as released in `released.json`, so the next release deploys it again.
 
 ## Subagents
 

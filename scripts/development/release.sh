@@ -16,7 +16,8 @@ label() {
 branch=$(git branch --show-current)
 [ -n "$branch" ] || fail "This repository is not on a branch."
 
-node scripts/development/release-check.mjs || fail "The release checks stopped the release."
+report=$(mktemp)
+node scripts/development/release-check.mjs --report "$report" || fail "The release checks stopped the release."
 
 submodules=$(git config --file .gitmodules --get-regexp '\.path$' | awk '{print $2}')
 released_file=released.json
@@ -75,8 +76,8 @@ else
   bump=patch
 fi
 
-version=$(node -e '
-  const [major, minor, patch] = require("./package.json").version.split(".").map(Number);
+version=$(git show HEAD:package.json | node -e '
+  const [major, minor, patch] = JSON.parse(require("fs").readFileSync(0, "utf8")).version.split(".").map(Number);
   const next = { major: [major + 1, 0, 0], minor: [major, minor + 1, 0], patch: [major, minor, patch + 1] };
   console.log(next[process.argv[1]].join("."));
 ' "$bump")
@@ -99,15 +100,59 @@ node -e '
   fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2) + "\n");
 ' "$version"
 
+deploys=""
+failed=""
+for path in server web mobile desktop; do
+  case " $changed " in
+    *" $path "*)
+      if ! node -e 'process.exit(require(process.argv[1]).scripts?.deploy ? 0 : 1)' "./$path/package.json"; then
+        echo "⏭️ Skipping the $path deploy: $path has no deploy script yet."
+        deploys="$deploys $path=no-deploy-script"
+        continue
+      fi
+      echo "🚀 Deploying $path..."
+      if (cd "$path" && pnpm run deploy); then
+        deploys="$deploys $path=deployed"
+      else
+        echo "⚠️ The $path deploy failed. The next release will deploy it again."
+        deploys="$deploys $path=failed"
+        failed="$failed $path"
+      fi
+      ;;
+    *)
+      echo "⏭️ Skipping the $path deploy: nothing new in $path."
+      deploys="$deploys $path=nothing-new"
+      ;;
+  esac
+done
+
+node scripts/development/release-history.mjs "$tag" "$report" $deploys || fail "Couldn’t save the release history."
+
+released_pairs() {
+  for path in $submodules; do
+    commit=$(git -C "$path" rev-parse HEAD)
+    case " $failed " in
+      *" $path "*)
+        commit=$(released_commit "$path")
+        [ -n "$commit" ] || commit=$(git rev-parse -q --verify "HEAD:$path")
+        ;;
+    esac
+    printf '%s %s ' "$path" "$commit"
+  done
+}
+
 node -e '
   const fs = require("fs");
   const [file, ...pairs] = process.argv.slice(1);
   const commits = {};
   for (let i = 0; i < pairs.length; i += 2) commits[pairs[i]] = pairs[i + 1];
   fs.writeFileSync(file, JSON.stringify(commits, null, 2) + "\n");
-' "$released_file" $(for path in $submodules; do printf '%s %s ' "$path" "$(git -C "$path" rev-parse HEAD)"; done)
+' "$released_file" $(released_pairs)
 
 message=$(printf '%s\n\n%s' "$tag" "$body")
+if [ -n "$failed" ]; then
+  message="$message"$'\n\n'"Deploy failed:"$'\n'"$(printf '%s\n' $failed | sed 's/^/- /')"
+fi
 
 git add -A
 printf '%s\n' "$message" | git commit -q --cleanup=whitespace -F -
@@ -117,18 +162,8 @@ echo "⬆️ Pushing $tag..."
 git push -u origin HEAD
 git push origin "refs/tags/$tag"
 
-for path in server web mobile desktop; do
-  case " $changed " in
-    *" $path "*)
-      if ! node -e 'process.exit(require(process.argv[1]).scripts?.deploy ? 0 : 1)' "./$path/package.json"; then
-        echo "⏭️ Skipping the $path deploy: $path has no deploy script yet."
-        continue
-      fi
-      echo "🚀 Deploying $path..."
-      (cd "$path" && pnpm run deploy)
-      ;;
-    *) echo "⏭️ Skipping the $path deploy: nothing new in $path." ;;
-  esac
-done
+rm -f "$report"
+
+[ -z "$failed" ] || fail "Released $tag, but these deploys failed:$failed. The next release will deploy them again."
 
 echo "✅ Released $tag"

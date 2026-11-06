@@ -33,7 +33,11 @@ const checks = {
   desktop: [],
 };
 
-const dryRun = process.argv.slice(2).includes("--dry-run");
+const args = process.argv.slice(2);
+const dryRun = args.includes("--dry-run");
+const reportFile = args.includes("--report") ? args[args.indexOf("--report") + 1] : null;
+const madeCommits = [];
+const fixRounds = [];
 
 function log(message) {
   console.log(message);
@@ -130,16 +134,23 @@ function commitAll() {
     if (!message) stop(`Couldn’t write a commit message for ${repo}, so the release stopped.`);
     git(repo, ["add", "-A"]);
     git(repo, ["commit", "-q", "-m", message]);
+    madeCommits.push({ repo, commit: git(repo, ["rev-parse", "HEAD"]).trim(), message });
     log(`   ${message}`);
     committed = true;
   }
   return committed;
 }
 
+function testSummary(output) {
+  const line = output.match(/^Tests:\s+(.+)$/m);
+  return line ? line[1].trim() : null;
+}
+
 function runChecks(round) {
   const roundDir = path.join(logsDir, String(round));
   mkdirSync(roundDir, { recursive: true });
   const failed = [];
+  const results = Object.fromEntries(repos.map((repo) => [repo, []]));
 
   for (const repo of repos) {
     if (checks[repo].length === 0) {
@@ -155,8 +166,11 @@ function runChecks(round) {
         maxBuffer: 64 * 1024 * 1024,
       });
       const problem = failure(run);
+      const summary = testSummary(`${run.stdout ?? ""}\n${run.stderr ?? ""}`);
+      const command = [bin, ...args].join(" ");
+      results[repo].push({ name, command, passed: !problem, ...(summary && { summary }) });
       if (!problem) {
-        log(`✅ ${repo} ${name}`);
+        log(`✅ ${repo} ${name}${summary ? ` (${summary})` : ""}`);
         continue;
       }
       const file = path.join(roundDir, `${repo}-${name}.log`);
@@ -165,10 +179,21 @@ function runChecks(round) {
         `$ ${[bin, ...args].join(" ")}\n(in ${repo}, ${problem})\n\n${run.stdout ?? ""}\n${run.stderr ?? ""}`,
       );
       log(`❌ ${repo} ${name} (${file})`);
-      failed.push({ repo, name, command: [bin, ...args].join(" "), file });
+      failed.push({ repo, name, command, file });
     }
   }
-  return failed;
+  return { failed, results };
+}
+
+function saveReport(results) {
+  if (!reportFile) return;
+  const apps = Object.fromEntries(
+    repos.map((repo) => [repo, { commit: git(repo, ["rev-parse", "HEAD"]).trim(), checks: results[repo] }]),
+  );
+  writeFileSync(
+    reportFile,
+    JSON.stringify({ checkedAt: new Date().toISOString(), apps, commits: madeCommits, fixRounds }, null, 2) + "\n",
+  );
 }
 
 function snapshot() {
@@ -260,7 +285,7 @@ function fix(failed) {
       );
     }
     const failedRun = failure(run);
-    if (!failedRun) return;
+    if (!failedRun) return agent.name;
     log(`⚠️ ${agent.name} ${failedRun}.`);
   }
   stop("Neither Claude nor Codex could fix the failing checks, so the release stopped.");
@@ -273,15 +298,17 @@ let leftovers = false;
 
 for (let round = 0; ; round++) {
   commitAll();
-  const failed = runChecks(round);
+  const { failed, results } = runChecks(round);
 
   if (failed.length === 0) {
     if (dryRun) {
+      saveReport(results);
       log("✅ Every check passes (dry run, nothing was committed).");
       process.exit(0);
     }
     const left = repos.filter(uncommitted);
     if (left.length === 0) {
+      saveReport(results);
       log("✅ Everything is committed and every check passes.");
       process.exit(0);
     }
@@ -303,5 +330,10 @@ for (let round = 0; ; round++) {
 
   fixes += 1;
   log(`🔧 Fix round ${fixes} of ${MAX_ROUNDS}`);
-  fix(failed);
+  const agent = fix(failed);
+  fixRounds.push({
+    round: fixes,
+    agent,
+    failed: failed.map(({ repo, name }) => `${repo} ${name}`),
+  });
 }
