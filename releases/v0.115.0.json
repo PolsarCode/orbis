@@ -1,0 +1,93 @@
+{
+  "tag": "v0.115.0",
+  "releasedAt": "2026-11-07T12:06:16.422Z",
+  "checkedAt": "2026-11-07T12:01:10.191Z",
+  "apps": {
+    "server": {
+      "previous": "ea8745599a73287bf40a30ed7ac050633d4e07d5",
+      "commit": "24590fbc08597375f3e183ec9d904059d836d0a7",
+      "checkedCommit": "24590fbc08597375f3e183ec9d904059d836d0a7",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "919 passed, 919 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "30e08f0fc516ceb362548cf5f896b277de1c2dcb",
+      "commit": "9b92586bea62e1fcfd6729fcf030217a15191a1b",
+      "checkedCommit": "9b92586bea62e1fcfd6729fcf030217a15191a1b",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "commit": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "checkedCommit": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "24590fbc08597375f3e183ec9d904059d836d0a7",
+      "message": "✨ Add account data export and deletion with content preservation"
+    },
+    {
+      "repo": "web",
+      "commit": "9b92586bea62e1fcfd6729fcf030217a15191a1b",
+      "message": "✨ Add account deletion and personal data download to settings"
+    }
+  ],
+  "fixRounds": []
+}
