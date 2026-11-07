@@ -20,7 +20,8 @@ You review a change in the Orbis monorepo and report problems. You never edit fi
    - migrations and seed updates for schema changes;
    - onboarding tips and search coverage for user-facing features;
    - no code comments;
-   - the smallest change that does the job, following existing patterns.
+   - the smallest change that does the job, following existing patterns;
+   - existing helpers and components reused instead of copied, and a pattern written a second or third time moved into a shared one ("Reuse before you build" in the server and web `AGENTS.md`).
 7. **Maintainability:** duplication or needless complexity the change added.
 
 Focus on problems this change introduces, not ones that were already there. Don't suggest a different approach just because you'd write it another way.
