@@ -1,0 +1,93 @@
+{
+  "tag": "v0.113.0",
+  "releasedAt": "2026-11-07T09:43:39.810Z",
+  "checkedAt": "2026-11-07T09:39:14.689Z",
+  "apps": {
+    "server": {
+      "previous": "9bb414c163ee8dffcc34997082a373fbe2eaa0d1",
+      "commit": "6b33ffa85712a0b6594b5ab131cd1b19fa777ec4",
+      "checkedCommit": "6b33ffa85712a0b6594b5ab131cd1b19fa777ec4",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "867 passed, 867 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "09eea064eee3f94ea7df165e3233159c9f98b127",
+      "commit": "30e08f0fc516ceb362548cf5f896b277de1c2dcb",
+      "checkedCommit": "30e08f0fc516ceb362548cf5f896b277de1c2dcb",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "commit": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "checkedCommit": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "6b33ffa85712a0b6594b5ab131cd1b19fa777ec4",
+      "message": "✨ Add edit history for posts, comments, and forum posts"
+    },
+    {
+      "repo": "web",
+      "commit": "30e08f0fc516ceb362548cf5f896b277de1c2dcb",
+      "message": "✨ Add edit history dialog for edited posts, comments and forum posts"
+    }
+  ],
+  "fixRounds": []
+}
