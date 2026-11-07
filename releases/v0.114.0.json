@@ -1,0 +1,88 @@
+{
+  "tag": "v0.114.0",
+  "releasedAt": "2026-11-07T09:51:06.866Z",
+  "checkedAt": "2026-11-07T09:49:21.186Z",
+  "apps": {
+    "server": {
+      "previous": "6b33ffa85712a0b6594b5ab131cd1b19fa777ec4",
+      "commit": "ea8745599a73287bf40a30ed7ac050633d4e07d5",
+      "checkedCommit": "ea8745599a73287bf40a30ed7ac050633d4e07d5",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "875 passed, 875 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "30e08f0fc516ceb362548cf5f896b277de1c2dcb",
+      "commit": "30e08f0fc516ceb362548cf5f896b277de1c2dcb",
+      "checkedCommit": "30e08f0fc516ceb362548cf5f896b277de1c2dcb",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "mobile": {
+      "previous": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "commit": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "checkedCommit": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "ea8745599a73287bf40a30ed7ac050633d4e07d5",
+      "message": "✨ Sync Steam library when users come online and after games end"
+    }
+  ],
+  "fixRounds": []
+}
