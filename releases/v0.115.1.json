@@ -1,0 +1,82 @@
+{
+  "tag": "v0.115.1",
+  "releasedAt": "2026-11-07T12:14:39.606Z",
+  "checkedAt": "2026-11-07T12:14:38.864Z",
+  "apps": {
+    "server": {
+      "previous": "24590fbc08597375f3e183ec9d904059d836d0a7",
+      "commit": "24590fbc08597375f3e183ec9d904059d836d0a7",
+      "checkedCommit": "24590fbc08597375f3e183ec9d904059d836d0a7",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "919 passed, 919 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "web": {
+      "previous": "9b92586bea62e1fcfd6729fcf030217a15191a1b",
+      "commit": "9b92586bea62e1fcfd6729fcf030217a15191a1b",
+      "checkedCommit": "9b92586bea62e1fcfd6729fcf030217a15191a1b",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "mobile": {
+      "previous": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "commit": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "checkedCommit": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [],
+  "fixRounds": []
+}
