@@ -1,0 +1,88 @@
+{
+  "tag": "v0.120.1",
+  "releasedAt": "2026-11-09T21:29:40.556Z",
+  "checkedAt": "2026-11-09T21:28:17.514Z",
+  "apps": {
+    "server": {
+      "previous": "0996fa87f1d8cebda276ef76b097e66ac55ad36b",
+      "commit": "0996fa87f1d8cebda276ef76b097e66ac55ad36b",
+      "checkedCommit": "0996fa87f1d8cebda276ef76b097e66ac55ad36b",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1000 passed, 1000 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "web": {
+      "previous": "2a6120ef0de48569f1575bdfdfd836b56b212842",
+      "commit": "122d625b461fbaed3fe7fff3df7f42f8adc0e81f",
+      "checkedCommit": "122d625b461fbaed3fe7fff3df7f42f8adc0e81f",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "web",
+      "commit": "122d625b461fbaed3fe7fff3df7f42f8adc0e81f",
+      "message": "💄 Group Discord settings into one section with feed and chart parts"
+    }
+  ],
+  "fixRounds": []
+}
