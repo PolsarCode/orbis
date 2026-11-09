@@ -1,0 +1,93 @@
+{
+  "tag": "v0.121.0",
+  "releasedAt": "2026-11-09T21:48:16.541Z",
+  "checkedAt": "2026-11-09T21:44:53.660Z",
+  "apps": {
+    "server": {
+      "previous": "0996fa87f1d8cebda276ef76b097e66ac55ad36b",
+      "commit": "018044ba19f6ee754bf895b1b87b939bfd9b13c9",
+      "checkedCommit": "018044ba19f6ee754bf895b1b87b939bfd9b13c9",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1004 passed, 1004 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "122d625b461fbaed3fe7fff3df7f42f8adc0e81f",
+      "commit": "4eb7f78731739b900c2d7045d9f999d957ab3d83",
+      "checkedCommit": "4eb7f78731739b900c2d7045d9f999d957ab3d83",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "018044ba19f6ee754bf895b1b87b939bfd9b13c9",
+      "message": "✨ Combine weekly Discord charts into one post with several images"
+    },
+    {
+      "repo": "web",
+      "commit": "4eb7f78731739b900c2d7045d9f999d957ab3d83",
+      "message": "💬 Describe Discord chart posts as combining all turned-on charts"
+    }
+  ],
+  "fixRounds": []
+}
