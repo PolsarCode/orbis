@@ -1,0 +1,98 @@
+{
+  "tag": "v0.116.0",
+  "releasedAt": "2026-11-09T01:23:45.358Z",
+  "checkedAt": "2026-11-09T01:18:03.560Z",
+  "apps": {
+    "server": {
+      "previous": "24590fbc08597375f3e183ec9d904059d836d0a7",
+      "commit": "e860fa0252d6e1b3ebedd992c0d27192194b7891",
+      "checkedCommit": "e860fa0252d6e1b3ebedd992c0d27192194b7891",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "929 passed, 929 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "9b92586bea62e1fcfd6729fcf030217a15191a1b",
+      "commit": "a8f54f99c8d0fc91f4070ea503d3052e9a40e635",
+      "checkedCommit": "ab4b41c3761167d35f1514c6bec28422f2203081",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "442368b9dadc4a5b4723c51d539445ea48c8bc03",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "e860fa0252d6e1b3ebedd992c0d27192194b7891",
+      "message": "✨ Show each user's most recently active device in presence"
+    },
+    {
+      "repo": "web",
+      "commit": "ab4b41c3761167d35f1514c6bec28422f2203081",
+      "message": "✨ Show device icons on presence badges across avatars"
+    },
+    {
+      "repo": "mobile",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "message": "🐛 Report mobile platform and idle state on socket handshakes"
+    }
+  ],
+  "fixRounds": []
+}
