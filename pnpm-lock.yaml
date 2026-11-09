@@ -519,6 +519,9 @@ importers:
       react-dom:
         specifier: 19.3.0
         version: 19.3.0(react@19.3.0)
+      sharp:
+        specifier: ^0.35.5
+        version: 0.35.5(@types/node@20.19.43)
       socket.io-client:
         specifier: 4.8.1
         version: 4.8.1(supports-color@8.1.1)
@@ -22416,7 +22419,6 @@ snapshots:
       '@img/sharp-win32-ia32': 0.35.5
       '@img/sharp-win32-x64': 0.35.5
       '@types/node': 20.19.43
-    optional: true
 
   shebang-command@2.0.0:
     dependencies:
