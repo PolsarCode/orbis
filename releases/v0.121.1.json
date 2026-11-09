@@ -1,0 +1,93 @@
+{
+  "tag": "v0.121.1",
+  "releasedAt": "2026-11-09T21:57:10.941Z",
+  "checkedAt": "2026-11-09T21:55:11.305Z",
+  "apps": {
+    "server": {
+      "previous": "018044ba19f6ee754bf895b1b87b939bfd9b13c9",
+      "commit": "91ca66aa7bec87e6b4595253e47335c307bda68b",
+      "checkedCommit": "91ca66aa7bec87e6b4595253e47335c307bda68b",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1004 passed, 1004 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "4eb7f78731739b900c2d7045d9f999d957ab3d83",
+      "commit": "b9d770a9ed2c9c9965c55a3f740ab8a46da5d81a",
+      "checkedCommit": "b9d770a9ed2c9c9965c55a3f740ab8a46da5d81a",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "91ca66aa7bec87e6b4595253e47335c307bda68b",
+      "message": "💬 Use a Markdown link for a single chart discussion link"
+    },
+    {
+      "repo": "web",
+      "commit": "b9d770a9ed2c9c9965c55a3f740ab8a46da5d81a",
+      "message": "💄 Highlight chart names and link text in Discord chart post preview"
+    }
+  ],
+  "fixRounds": []
+}
