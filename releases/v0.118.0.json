@@ -1,0 +1,93 @@
+{
+  "tag": "v0.118.0",
+  "releasedAt": "2026-11-09T13:51:42.676Z",
+  "checkedAt": "2026-11-09T13:47:12.897Z",
+  "apps": {
+    "server": {
+      "previous": "3b308fa892420bdd20c9aa46bb80823c083aed7d",
+      "commit": "9b63902ae4cf402ca75a3cb9adafe14f0255ce05",
+      "checkedCommit": "9b63902ae4cf402ca75a3cb9adafe14f0255ce05",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "940 passed, 940 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "8b31040158b4525fee9123c1d8871d67fd3ca85b",
+      "commit": "47a10789e471f125d9d1bb5e46600fc3a625bb62",
+      "checkedCommit": "47a10789e471f125d9d1bb5e46600fc3a625bb62",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "9b63902ae4cf402ca75a3cb9adafe14f0255ce05",
+      "message": "✨ Include synopsis in media list items"
+    },
+    {
+      "repo": "web",
+      "commit": "47a10789e471f125d9d1bb5e46600fc3a625bb62",
+      "message": "✨ Rework library into Catalog with Discover, My library and Charts"
+    }
+  ],
+  "fixRounds": []
+}
