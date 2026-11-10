@@ -1,0 +1,88 @@
+{
+  "tag": "v0.124.2",
+  "releasedAt": "2026-11-10T04:18:49.375Z",
+  "checkedAt": "2026-11-10T04:17:06.700Z",
+  "apps": {
+    "server": {
+      "previous": "85b810932a73eccca8ff8fcc811753da61ece2e7",
+      "commit": "85b810932a73eccca8ff8fcc811753da61ece2e7",
+      "checkedCommit": "85b810932a73eccca8ff8fcc811753da61ece2e7",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1038 passed, 1038 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "web": {
+      "previous": "2397ad1dd6d6605d39e076c790fdbd8e0090a0a1",
+      "commit": "67de35fa035fbb15a2fe6c92e16336ffa10ad146",
+      "checkedCommit": "67de35fa035fbb15a2fe6c92e16336ffa10ad146",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "web",
+      "commit": "67de35fa035fbb15a2fe6c92e16336ffa10ad146",
+      "message": "💄 Overlay prev/next arrows on the Trending carousel instead of pager"
+    }
+  ],
+  "fixRounds": []
+}
