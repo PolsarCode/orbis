@@ -1,0 +1,88 @@
+{
+  "tag": "v0.123.0",
+  "releasedAt": "2026-11-10T01:04:41.837Z",
+  "checkedAt": "2026-11-10T01:02:31.046Z",
+  "apps": {
+    "server": {
+      "previous": "4ed5b439f7fc42053dffc3f5974b6a8a81deb5b0",
+      "commit": "4ed5b439f7fc42053dffc3f5974b6a8a81deb5b0",
+      "checkedCommit": "4ed5b439f7fc42053dffc3f5974b6a8a81deb5b0",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1035 passed, 1035 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "web": {
+      "previous": "524061c6d82049fc44d9cab2c9f713d3fd151783",
+      "commit": "b0031cd95ba2ecb6a84cde40ad25df4268de0563",
+      "checkedCommit": "b0031cd95ba2ecb6a84cde40ad25df4268de0563",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "web",
+      "commit": "b0031cd95ba2ecb6a84cde40ad25df4268de0563",
+      "message": "✨ Add Find us page with Orbis social links and link it in the footer"
+    }
+  ],
+  "fixRounds": []
+}
