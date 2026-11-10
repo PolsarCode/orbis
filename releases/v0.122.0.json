@@ -1,0 +1,93 @@
+{
+  "tag": "v0.122.0",
+  "releasedAt": "2026-11-10T00:41:08.820Z",
+  "checkedAt": "2026-11-10T00:37:35.908Z",
+  "apps": {
+    "server": {
+      "previous": "91ca66aa7bec87e6b4595253e47335c307bda68b",
+      "commit": "4ed5b439f7fc42053dffc3f5974b6a8a81deb5b0",
+      "checkedCommit": "4ed5b439f7fc42053dffc3f5974b6a8a81deb5b0",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1035 passed, 1035 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "b9d770a9ed2c9c9965c55a3f740ab8a46da5d81a",
+      "commit": "524061c6d82049fc44d9cab2c9f713d3fd151783",
+      "checkedCommit": "524061c6d82049fc44d9cab2c9f713d3fd151783",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "4ed5b439f7fc42053dffc3f5974b6a8a81deb5b0",
+      "message": "✨ Add weekly chart posts to the Facebook page"
+    },
+    {
+      "repo": "web",
+      "commit": "524061c6d82049fc44d9cab2c9f713d3fd151783",
+      "message": "✨ Move Directory to an Admin page with a Website settings tab"
+    }
+  ],
+  "fixRounds": []
+}
