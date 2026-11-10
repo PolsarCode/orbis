@@ -1,0 +1,93 @@
+{
+  "tag": "v0.124.4",
+  "releasedAt": "2026-11-10T14:16:57.648Z",
+  "checkedAt": "2026-11-10T14:12:44.202Z",
+  "apps": {
+    "server": {
+      "previous": "85b810932a73eccca8ff8fcc811753da61ece2e7",
+      "commit": "4197f5fb8d3726f379ac8237d87d6db9fd234656",
+      "checkedCommit": "4197f5fb8d3726f379ac8237d87d6db9fd234656",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1040 passed, 1040 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "e1d664e38522d522e1bf89053b338810dcf11d08",
+      "commit": "39a487dbb7c8b56e0c25ca10d8d942fabacec138",
+      "checkedCommit": "39a487dbb7c8b56e0c25ca10d8d942fabacec138",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "4197f5fb8d3726f379ac8237d87d6db9fd234656",
+      "message": "🐛 Keep presence sockets from crashing when the database is unreachable"
+    },
+    {
+      "repo": "web",
+      "commit": "39a487dbb7c8b56e0c25ca10d8d942fabacec138",
+      "message": "🔥 Remove home Trending carousel and Discover banner overlays"
+    }
+  ],
+  "fixRounds": []
+}
