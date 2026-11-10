@@ -1,0 +1,88 @@
+{
+  "tag": "v0.124.0",
+  "releasedAt": "2026-11-10T03:16:53.550Z",
+  "checkedAt": "2026-11-10T03:12:58.698Z",
+  "apps": {
+    "server": {
+      "previous": "4ed5b439f7fc42053dffc3f5974b6a8a81deb5b0",
+      "commit": "85b810932a73eccca8ff8fcc811753da61ece2e7",
+      "checkedCommit": "85b810932a73eccca8ff8fcc811753da61ece2e7",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1038 passed, 1038 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "b0031cd95ba2ecb6a84cde40ad25df4268de0563",
+      "commit": "8f139ec81b474bb613018f93187264366d784725",
+      "checkedCommit": "8f139ec81b474bb613018f93187264366d784725",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "web",
+      "commit": "8f139ec81b474bb613018f93187264366d784725",
+      "message": "♻️ Reuse library media type switch in home Trending section"
+    }
+  ],
+  "fixRounds": []
+}
