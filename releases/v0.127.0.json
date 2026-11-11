@@ -1,0 +1,93 @@
+{
+  "tag": "v0.127.0",
+  "releasedAt": "2026-11-11T01:51:45.080Z",
+  "checkedAt": "2026-11-11T01:47:27.094Z",
+  "apps": {
+    "server": {
+      "previous": "e103d4540cdc9df92e20d042b2c96191c90ffa13",
+      "commit": "3db549ed0bc46b29c432a8ae202d05a6b4d68560",
+      "checkedCommit": "3db549ed0bc46b29c432a8ae202d05a6b4d68560",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1137 passed, 1137 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "92b3fb39bdd79a4c107ca8a27b86d3d7e9bb71a1",
+      "commit": "e7bbb9260e8a91275be5905f0ac1d1e195942a26",
+      "checkedCommit": "e7bbb9260e8a91275be5905f0ac1d1e195942a26",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checkedCommit": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "3db549ed0bc46b29c432a8ae202d05a6b4d68560",
+      "message": "✨ Add Facebook follower milestone posts with per-kind switches"
+    },
+    {
+      "repo": "web",
+      "commit": "e7bbb9260e8a91275be5905f0ac1d1e195942a26",
+      "message": "✨ Add Facebook follower milestones and show follower counts"
+    }
+  ],
+  "fixRounds": []
+}
