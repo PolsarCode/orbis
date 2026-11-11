@@ -1,0 +1,88 @@
+{
+  "tag": "v0.129.1",
+  "releasedAt": "2026-11-11T15:08:35.895Z",
+  "checkedAt": "2026-11-11T15:06:50.021Z",
+  "apps": {
+    "server": {
+      "previous": "47fe76c89a8273ac5f3f1c66a9040a4f40342dca",
+      "commit": "47fe76c89a8273ac5f3f1c66a9040a4f40342dca",
+      "checkedCommit": "47fe76c89a8273ac5f3f1c66a9040a4f40342dca",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1147 passed, 1147 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "web": {
+      "previous": "c66d316cad8a8b1eadd7ab702047a373bd52e425",
+      "commit": "5e966a911af3c321f18339abda2a945068161672",
+      "checkedCommit": "5e966a911af3c321f18339abda2a945068161672",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "commit": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "checkedCommit": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "web",
+      "commit": "5e966a911af3c321f18339abda2a945068161672",
+      "message": "💄 Use standard size steps for small avatar badge icons"
+    }
+  ],
+  "fixRounds": []
+}
