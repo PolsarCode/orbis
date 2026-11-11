@@ -1,0 +1,93 @@
+{
+  "tag": "v0.129.0",
+  "releasedAt": "2026-11-11T03:55:47.400Z",
+  "checkedAt": "2026-11-11T03:51:29.864Z",
+  "apps": {
+    "server": {
+      "previous": "3db549ed0bc46b29c432a8ae202d05a6b4d68560",
+      "commit": "47fe76c89a8273ac5f3f1c66a9040a4f40342dca",
+      "checkedCommit": "47fe76c89a8273ac5f3f1c66a9040a4f40342dca",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1147 passed, 1147 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "e7bbb9260e8a91275be5905f0ac1d1e195942a26",
+      "commit": "c66d316cad8a8b1eadd7ab702047a373bd52e425",
+      "checkedCommit": "c66d316cad8a8b1eadd7ab702047a373bd52e425",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "commit": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "checkedCommit": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "47fe76c89a8273ac5f3f1c66a9040a4f40342dca",
+      "message": "✨ Show milestone progress, goal, and recent posts in Facebook admin"
+    },
+    {
+      "repo": "web",
+      "commit": "c66d316cad8a8b1eadd7ab702047a373bd52e425",
+      "message": "✨ Add Milestones admin tab with milestone progress and goals"
+    }
+  ],
+  "fixRounds": []
+}
