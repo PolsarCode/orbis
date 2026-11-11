@@ -1,0 +1,88 @@
+{
+  "tag": "v0.128.0",
+  "releasedAt": "2026-11-11T02:50:40.733Z",
+  "checkedAt": "2026-11-11T02:50:33.033Z",
+  "apps": {
+    "server": {
+      "previous": "3db549ed0bc46b29c432a8ae202d05a6b4d68560",
+      "commit": "3db549ed0bc46b29c432a8ae202d05a6b4d68560",
+      "checkedCommit": "3db549ed0bc46b29c432a8ae202d05a6b4d68560",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1137 passed, 1137 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "web": {
+      "previous": "e7bbb9260e8a91275be5905f0ac1d1e195942a26",
+      "commit": "e7bbb9260e8a91275be5905f0ac1d1e195942a26",
+      "checkedCommit": "e7bbb9260e8a91275be5905f0ac1d1e195942a26",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "f4f5580ffb514cdff790f5e96f4f70979cba0996",
+      "commit": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "checkedCommit": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "checks": [],
+      "deploy": "deployed"
+    }
+  },
+  "commits": [
+    {
+      "repo": "desktop",
+      "commit": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "message": "✨ Open external links in the browser and reveal finished downloads"
+    }
+  ],
+  "fixRounds": []
+}
