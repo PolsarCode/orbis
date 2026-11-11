@@ -1,0 +1,93 @@
+{
+  "tag": "v0.130.0",
+  "releasedAt": "2026-11-11T16:34:58.098Z",
+  "checkedAt": "2026-11-11T16:26:42.473Z",
+  "apps": {
+    "server": {
+      "previous": "47fe76c89a8273ac5f3f1c66a9040a4f40342dca",
+      "commit": "6f1720c7030309c6e0d2891546d7df3768abf0ce",
+      "checkedCommit": "6f1720c7030309c6e0d2891546d7df3768abf0ce",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1263 passed, 1263 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "5e966a911af3c321f18339abda2a945068161672",
+      "commit": "1d259c7395960d4af47d4ad99efc3df0fc684cc2",
+      "checkedCommit": "26c9e9df7bbb104a6e809faa773f48c58f316647",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "commit": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "checkedCommit": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "6f1720c7030309c6e0d2891546d7df3768abf0ce",
+      "message": "✨ Add weekly and seasonal Facebook page posts with per-kind switches"
+    },
+    {
+      "repo": "web",
+      "commit": "26c9e9df7bbb104a6e809faa773f48c58f316647",
+      "message": "✨ Add scheduled Facebook auto posts with share images and settings"
+    }
+  ],
+  "fixRounds": []
+}
