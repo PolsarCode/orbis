@@ -1,0 +1,93 @@
+{
+  "tag": "v0.131.0",
+  "releasedAt": "2026-11-12T10:43:34.148Z",
+  "checkedAt": "2026-11-12T10:40:40.505Z",
+  "apps": {
+    "server": {
+      "previous": "6f1720c7030309c6e0d2891546d7df3768abf0ce",
+      "commit": "6f1720c7030309c6e0d2891546d7df3768abf0ce",
+      "checkedCommit": "6f1720c7030309c6e0d2891546d7df3768abf0ce",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1263 passed, 1263 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "web": {
+      "previous": "6f609b23b5668a17e785056a3664d64d71408053",
+      "commit": "33afc2099d166617b505862053f6be8ecf9c06f8",
+      "checkedCommit": "33afc2099d166617b505862053f6be8ecf9c06f8",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checkedCommit": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "247 passed, 247 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "1bae1137f2062cf2e0f484eaa5ef2b9e518d622c",
+      "commit": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "checkedCommit": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "checks": [],
+      "deploy": "deployed"
+    }
+  },
+  "commits": [
+    {
+      "repo": "web",
+      "commit": "33afc2099d166617b505862053f6be8ecf9c06f8",
+      "message": "✨ Add start minimized setting to desktop startup settings"
+    },
+    {
+      "repo": "desktop",
+      "commit": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "message": "✨ Start minimized on login with a setting to turn it off"
+    }
+  ],
+  "fixRounds": []
+}
