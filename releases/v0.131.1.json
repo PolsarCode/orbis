@@ -1,0 +1,88 @@
+{
+  "tag": "v0.131.1",
+  "releasedAt": "2026-11-13T14:30:40.195Z",
+  "checkedAt": "2026-11-13T14:28:32.173Z",
+  "apps": {
+    "server": {
+      "previous": "6f1720c7030309c6e0d2891546d7df3768abf0ce",
+      "commit": "6f1720c7030309c6e0d2891546d7df3768abf0ce",
+      "checkedCommit": "6f1720c7030309c6e0d2891546d7df3768abf0ce",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1263 passed, 1263 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "web": {
+      "previous": "33afc2099d166617b505862053f6be8ecf9c06f8",
+      "commit": "0b96b230ee7c4ba768ded9a2feb0aeced577c389",
+      "checkedCommit": "33afc2099d166617b505862053f6be8ecf9c06f8",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "8fd4f6f510971351df8591d3e6d9749277afaf20",
+      "commit": "3ac888dc77362a88cc3455ae978ff2bb66109b0f",
+      "checkedCommit": "3ac888dc77362a88cc3455ae978ff2bb66109b0f",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "256 passed, 256 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "desktop": {
+      "previous": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "commit": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "checkedCommit": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "mobile",
+      "commit": "3ac888dc77362a88cc3455ae978ff2bb66109b0f",
+      "message": "🚸 Add signup terms and a start-over link to the OAuth username screen"
+    }
+  ],
+  "fixRounds": []
+}

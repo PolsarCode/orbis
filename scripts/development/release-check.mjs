@@ -66,7 +66,7 @@ function failure(run) {
 }
 
 function commitPrompt() {
-  return `Use the git-commit skill to write a commit message for the currently uncommitted changes in this repository (staged and unstaged). Do not run git add or git commit. The commit message must be a single line only, with no body, bullet points, or explanation: just the Gitmoji and an imperative summary, at most ${MESSAGE_LIMIT} characters. Output the commit message wrapped exactly between the markers ${START} and ${END}, each on their own line, with nothing else before, after, or between those markers besides the message itself.`;
+  return `Use the commit skill to write a commit message for the currently uncommitted changes in this repository (staged and unstaged). Do not run git add or git commit. The commit message must be a single line only, with no body, bullet points, or explanation: just the Gitmoji and an imperative summary, at most ${MESSAGE_LIMIT} characters. Output the commit message wrapped exactly between the markers ${START} and ${END}, each on their own line, with nothing else before, after, or between those markers besides the message itself.`;
 }
 
 function messageFrom(output) {
