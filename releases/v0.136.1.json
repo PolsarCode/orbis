@@ -1,0 +1,93 @@
+{
+  "tag": "v0.136.1",
+  "releasedAt": "2026-11-14T13:21:55.672Z",
+  "checkedAt": "2026-11-14T13:19:38.204Z",
+  "apps": {
+    "server": {
+      "previous": "4a8bc60e23fd7c3c42ffb2545d354197213446ba",
+      "commit": "4a8bc60e23fd7c3c42ffb2545d354197213446ba",
+      "checkedCommit": "4a8bc60e23fd7c3c42ffb2545d354197213446ba",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1278 passed, 1278 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "web": {
+      "previous": "828aca99d8c9a1c75c5e4888361d2998f24b8c7f",
+      "commit": "7fc962ece838a0927885118c3c41fcbf3efe2c80",
+      "checkedCommit": "7fc962ece838a0927885118c3c41fcbf3efe2c80",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "3ac888dc77362a88cc3455ae978ff2bb66109b0f",
+      "commit": "3ac888dc77362a88cc3455ae978ff2bb66109b0f",
+      "checkedCommit": "3ac888dc77362a88cc3455ae978ff2bb66109b0f",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "256 passed, 256 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "commit": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "checkedCommit": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "web",
+      "commit": "27932bf12f7908b3f73cede483c950f7ed723fee",
+      "message": "💄 Add calendar chip detail popovers and accent-styled popover arrows"
+    },
+    {
+      "repo": "web",
+      "commit": "7fc962ece838a0927885118c3c41fcbf3efe2c80",
+      "message": "💬 Shorten Explore rail label to \"Explore\""
+    }
+  ],
+  "fixRounds": []
+}
