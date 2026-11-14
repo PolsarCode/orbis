@@ -1,0 +1,93 @@
+{
+  "tag": "v0.136.0",
+  "releasedAt": "2026-11-14T00:37:08.318Z",
+  "checkedAt": "2026-11-14T00:32:56.772Z",
+  "apps": {
+    "server": {
+      "previous": "4ea5e53fcba94454468e8afebe80eecd2a5122b2",
+      "commit": "4a8bc60e23fd7c3c42ffb2545d354197213446ba",
+      "checkedCommit": "4a8bc60e23fd7c3c42ffb2545d354197213446ba",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "1278 passed, 1278 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit -p tsconfig.json",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint {src,apps,libs,test}/**/*.ts",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "web": {
+      "previous": "b435041bcc69a98ab1e454b375cfc0540e5e8124",
+      "commit": "828aca99d8c9a1c75c5e4888361d2998f24b8c7f",
+      "checkedCommit": "828aca99d8c9a1c75c5e4888361d2998f24b8c7f",
+      "checks": [
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx eslint",
+          "passed": true
+        }
+      ],
+      "deploy": "deployed"
+    },
+    "mobile": {
+      "previous": "3ac888dc77362a88cc3455ae978ff2bb66109b0f",
+      "commit": "3ac888dc77362a88cc3455ae978ff2bb66109b0f",
+      "checkedCommit": "3ac888dc77362a88cc3455ae978ff2bb66109b0f",
+      "checks": [
+        {
+          "name": "tests",
+          "command": "npx jest",
+          "passed": true,
+          "summary": "256 passed, 256 total"
+        },
+        {
+          "name": "types",
+          "command": "npx tsc --noEmit",
+          "passed": true
+        },
+        {
+          "name": "lint",
+          "command": "npx expo lint",
+          "passed": true
+        }
+      ],
+      "deploy": "nothing-new"
+    },
+    "desktop": {
+      "previous": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "commit": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "checkedCommit": "049e7b90ba61ecf150e9550f29f5592f6e20bb09",
+      "checks": [],
+      "deploy": "nothing-new"
+    }
+  },
+  "commits": [
+    {
+      "repo": "server",
+      "commit": "4a8bc60e23fd7c3c42ffb2545d354197213446ba",
+      "message": "✨ Add public library titles endpoint for the sitemap"
+    },
+    {
+      "repo": "web",
+      "commit": "828aca99d8c9a1c75c5e4888361d2998f24b8c7f",
+      "message": "🔍 Add sitemap, robots, and catalog title metadata for SEO"
+    }
+  ],
+  "fixRounds": []
+}
